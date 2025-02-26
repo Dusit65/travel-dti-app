@@ -1,9 +1,48 @@
-import React from 'react'
+import React, { use } from 'react'
 import {Box, Typography, Avatar, TextField, Button} from '@mui/material'; //material ui
 import Travel from './../assets/travel.png';//Logo image
 import {Link} from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+
+  const [travellerEmail, setTravellerEmail] = useState('');
+  const [travellerPassword, setTravellerPassword] = useState('');
+  const navigator = useNavigate();
+
+  
+  const handleLoginClick = async (e) => {
+    e.preventDefault();
+    // Validate UI
+    if(travellerEmail.length == 0){
+      alert('ป้อนชื่อผู้ใช้');
+      return;
+    }else if(travellerPassword.length == 0){
+      alert('ป้อนรหัสผ่าน');
+      return;
+    }else{
+      //send data to API and go to MyTravel.jsx("/mytravel") GET
+      try {
+        const response = await fetch(`http://localhost:4000/traveller/${travellerEmail}/${travellerPassword}`, {
+            method: 'GET',
+        });
+    
+        if (response.status === 200) {
+            alert("เข้าสู่ระบบสำเร็จ OwO");
+    
+            const data = await response.json();
+            localStorage.setItem('traveller', JSON.stringify(data["data"]));
+            navigator("/mytravel"); 
+        } else {
+            alert("อีเมลหรือรหัสผ่านไม่ถูกต้อง ??");
+        }
+    } catch (error) {
+        alert(`พบข้อผิดพลาดในการเข้าสู่ระบบ TwT: ${error.message}`);
+        console.error(error);
+    }
+    }
+  }
   return (
     <Box sx={{width: '100%', height:'100vh' ,display:'flex', alignItems: 'center'}}>
       <Box sx={{width:'60%', boxShadow: 4, mx:'auto', my:'auto' ,p:5}}>
@@ -23,15 +62,15 @@ function Login() {
           ชื่อผู้ใช้
         </Typography>
         {/* TextField Username  =====================================*/}
-        <TextField fullWidth />
+        <TextField fullWidth value={travellerEmail} onChange={(e) => setTravellerEmail(e.target.value)}/>
 
         <Typography sx={{fontWeight: 'bold',mt:2 , mb:1}}>
           รหัสผ่าน
         </Typography>
 
          {/* TextField passwords  =====================================*/}
-        <TextField fullWidth type='password'/>
-        <Button variant='contained' fullWidth sx={{mt:2, py:2, backgroundColor: '#259e69'}} >
+        <TextField fullWidth type='password' value={travellerPassword} onChange={(e) => setTravellerPassword(e.target.value)}/>
+        <Button variant='contained'onClick={handleLoginClick} fullWidth sx={{mt:2, py:2, backgroundColor: '#259e69'}} >
             LOGIN
         </Button>
 

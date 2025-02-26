@@ -8,7 +8,7 @@ import {
   styled
 } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Travel from "./../assets/travel.png";
 import Profile from "./../assets/profile.png";
 
@@ -18,14 +18,12 @@ function Register() {
   const [travellerEmail, setTravellerEmail] = useState('');
   const [travellerPassword, setTravellerPassword] = useState('');
 
-
+  const navigator = useNavigate();
   const handleSelectFileClick = (e) => {
     const file = e.target.files[0];
     if (file) {
         setTravellerImage(file);
     }
-
-
   }
 
   const handleRegisterClick = async (e) => {
@@ -38,10 +36,38 @@ function Register() {
           alert('ป้อนอีเมล์ด้วย') 
       }else if(travellerPassword.trim().length == 0){ 
           alert('ป้อนรหัสผ่านด้วย') 
-      }else if(travellerImage == null) { 
-          alert('เลือกรูปด้วย') 
       }else{ 
       //ส่งข้อมูลไปให้ API บันทึงลง DB แล้ว redirect ไปหน้า Login
+      //Packing data
+      const formData = new FormData();
+
+      formData.append('travellerFullname', travellerFullname);
+      formData.append('travellerEmail', travellerEmail);
+      formData.append('travellerPassword', travellerPassword);
+
+      if (travellerImage){
+        formData.append('travellerImage', travellerImage);
+      }
+
+      //send data from formData to API (http://localhost:4000/traveller) POST
+      try {
+        const response = await fetch('http://localhost:4000/traveller/', {
+          method: 'POST',
+          body: formData,
+        });
+        if(response.status == 201){
+          alert("สมัครสมาชิกสําเร็จOwO");
+          navigator("/")
+          // window.location.href("/")
+        }else{
+          alert("สมัครสมาชิกไม่สำเร็จดปรดลองใหม่อีกครั้งTwT");
+        }
+      }
+      catch (error) {
+        alert("พบข้อผิดพลาดในการสมัครสมาชิก", error);
+
+      }
+
       }
   }
 
@@ -108,9 +134,6 @@ function Register() {
           </Button>
           </Box>
         
-
-       
-
         {/* btRegister   =====================================*/}
         <Button variant='contained' fullWidth sx={{mt:2, py:2, backgroundColor: '#259e69'}} onClick={handleRegisterClick} >
             Register
