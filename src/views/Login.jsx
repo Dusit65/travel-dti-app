@@ -24,23 +24,23 @@ function Login() {
     }else{
       //send data to API and go to MyTravel.jsx("/mytravel") GET
       try {
-        const response = await fetch(`http://localhost:4000/traveller/${travellerEmail}/${travellerPassword}`, {
-            method: 'GET',
-        });
-    
-        if (response.status === 200) {
-            alert("เข้าสู่ระบบสำเร็จ OwO");
-    
-            const data = await response.json();
-            localStorage.setItem('traveller', JSON.stringify(data["data"]));
-            navigator("/mytravel"); 
-        } else {
-            alert("อีเมลหรือรหัสผ่านไม่ถูกต้อง ??");
-        }
-    } catch (error) {
-        alert(`พบข้อผิดพลาดในการเข้าสู่ระบบ TwT: ${error.message}`);
-        console.error(error);
-    }
+        const response = await fetch(`http://localhost:4000/traveller/${travellerEmail}/${travellerPassword}`, { //'http://localhost:4000/traveller/+travellerEmail+'/'+travellerPassword'
+          method: 'GET',
+        })
+        if(response.status == 200){
+          //get data Traveller and save in memory
+          const data = await response.json()
+          localStorage.setItem('traveller', JSON.stringify(data["data"]))
+          //go to (/mytravel)
+          navigator('/mytravel')
+          }else if(response.status == 404){
+            alert('ชื่อผู้ใช้(Email)หรือรหัสผ่านไม่ถูกต้อง')
+          }else{
+            alert('เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง')
+              }
+      } catch (error) {
+        alert('เกิดข้อผิดพลาด: ' + error)
+      }
     }
   }
   return (
