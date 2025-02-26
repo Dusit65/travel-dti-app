@@ -37,7 +37,7 @@ function Register() {
       }else if(travellerPassword.trim().length == 0){ 
           alert('ป้อนรหัสผ่านด้วย') 
       }else{ 
-      //ส่งข้อมูลไปให้ API บันทึงลง DB แล้ว redirect ไปหน้า Login
+      //Send data to API, save to DB and redirect to Login page.
       //Packing data
       const formData = new FormData();
 
