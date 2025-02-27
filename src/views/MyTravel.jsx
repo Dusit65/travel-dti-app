@@ -46,7 +46,9 @@ function MyTravel() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 บันทึกการเดินทาง
               </Typography>
+              <Link to="/editprofile">
               <Button color="inherit">{travellerFullname}</Button>
+              </Link>
               <Avatar
               src={
                 travellerImage
