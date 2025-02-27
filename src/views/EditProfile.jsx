@@ -67,7 +67,7 @@ function EditProfile() {
                 aria-label="menu"
                 sx={{ mr: 2 }}
               >
-                <FlightTakeoffIcon sx={{ color: 'yellow' }} />
+                <Link to="/mytravel"><FlightTakeoffIcon sx={{ color: 'yellow' }} /></Link>
               </IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 บันทึกการเดินทาง
@@ -93,7 +93,7 @@ function EditProfile() {
           <Avatar src={Travel} alt="travel logo"
             sx={{ width: 150, height: 150, mx: 'auto', my: 2 }} />
           <Typography variant='h5' sx={{ textAlign: 'center', fontWeight: 'bold' }}>
-            ลงทะเบียน
+            แก้ไขข้อมูลส่วนตัว
           </Typography>
           <Typography sx={{ fontWeight: 'bold', mt: 4, mb: 1 }} >
             ชื่อ-นามสกุล
