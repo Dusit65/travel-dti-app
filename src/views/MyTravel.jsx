@@ -19,7 +19,7 @@ function MyTravel() {
   useEffect(() => {
     //take data from localstorage and show at AppBar
     //read data in memory
-
+    
     const traveller = JSON.parse(localStorage.getItem("traveller"));
     //take data from variable and use with state
 
@@ -32,6 +32,7 @@ function MyTravel() {
     <>
       <Box sx={{ width: "100%" }}>
         <Box sx={{ flexGrow: 1 }}>
+          {/* AppBar====================================== */}
           <AppBar position="static">
             <Toolbar>
               <IconButton
@@ -46,6 +47,7 @@ function MyTravel() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 บันทึกการเดินทาง
               </Typography>
+              {/* Go to editprofile===============================*/}
               <Link to="/editprofile">
               <Button color="inherit">{travellerFullname}</Button>
               </Link>
@@ -69,12 +71,13 @@ function MyTravel() {
               </Link>
             </Toolbar>
           </AppBar>
+          {/* AppBar====================================================== */}
         </Box>
         <Box sx={{ width: "70%", boxShadow: 4, mx: "auto", p: 5, my: 4 }}>
           <Typography variant="h4" component="div" sx={{ textAlign: "center" }}>
             การเดินทางของฉัน
           </Typography>
-
+          {/* Go to AddMyTravel============================================*/}
           <Link
             to="/addmytravel"
             style={{
@@ -88,6 +91,7 @@ function MyTravel() {
               เพิ่มการเดินทาง
             </Button>
           </Link>
+
         </Box>
       </Box>
     </>
