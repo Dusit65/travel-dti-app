@@ -14,10 +14,9 @@ import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Travel from "./../assets/travel.png"; //Logo image
 import Profile from "../assets/profile.png";
-
 
 function AddMyTravel() {
   const [travellerFullname, setTravellerFullname] = useState("");
@@ -77,7 +76,7 @@ function AddMyTravel() {
     } else if (travelEndDate.trim().length == 0) {
       alert("ป้อนวันที่กลับด้วย");
     } else if (travelCostTotal.trim().length == 0) {
-        alert("ป้อนค่าใช้จ่ายในการเดินทางด้วย");
+      alert("ป้อนค่าใช้จ่ายในการเดินทางด้วย");
     } else {
       //ส่งข้อมูลไปให้ API บันทึงลง DB แล้ว redirect ไปหน้า Login
       //Packing data
@@ -125,12 +124,17 @@ function AddMyTravel() {
                 aria-label="menu"
                 sx={{ mr: 2 }}
               >
-                <FlightTakeoffIcon sx={{ color: "yellow" }} />
+                <Link to="/mytravel">
+                  <FlightTakeoffIcon sx={{ color: "yellow" }} />
+                </Link>
               </IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 เพิ่มบันทึกการเดินทาง
               </Typography>
-              <Button color="inherit">{travellerFullname}</Button>
+              {/* Go to editprofile */}
+              <Link to="/editprofile">
+                <Button color="inherit">{travellerFullname}</Button>
+              </Link>
               <Avatar
                 src={
                   travellerImage == ""
@@ -138,6 +142,7 @@ function AddMyTravel() {
                     : `http://localhost:4000/images/traveller/${travellerImage}`
                 }
               />
+              {/* logout */}
               <Link
                 to="/"
                 style={{
@@ -178,25 +183,41 @@ function AddMyTravel() {
             สถานที่ที่เดินทางไป
           </Typography>
           {/* TextField  Place =====================================*/}
-          <TextField fullWidth value={travelPlace} onChange={(e) => setTravelPlace(e.target.value)}/>
+          <TextField
+            fullWidth
+            value={travelPlace}
+            onChange={(e) => setTravelPlace(e.target.value)}
+          />
 
           <Typography sx={{ fontWeight: "bold", mt: 2, mb: 1 }}>
             วันที่เดินทางไป
           </Typography>
           {/* TextField StartDate  =====================================*/}
-          <TextField fullWidth value={travelStartDate} onChange={(e) => setTravelStartDate(e.target.value)}/>
+          <TextField
+            fullWidth
+            value={travelStartDate}
+            onChange={(e) => setTravelStartDate(e.target.value)}
+          />
 
           <Typography sx={{ fontWeight: "bold", mt: 2, mb: 1 }}>
             วันที่เดินทางกลับ
           </Typography>
           {/* TextField EndDate  =====================================*/}
-          <TextField fullWidth value={travelEndDate} onChange={(e) => setTravelEndDate(e.target.value)} />
+          <TextField
+            fullWidth
+            value={travelEndDate}
+            onChange={(e) => setTravelEndDate(e.target.value)}
+          />
 
           <Typography sx={{ fontWeight: "bold", mt: 2, mb: 1 }}>
             ค่าใช้จ่ายในการเดินทาง
           </Typography>
           {/* TextField costTravel  =====================================*/}
-          <TextField fullWidth value={travelCostTotal} onChange={(e) => setTravelCostTotal(e.target.value)}/>
+          <TextField
+            fullWidth
+            value={travelCostTotal}
+            onChange={(e) => setTravelCostTotal(e.target.value)}
+          />
 
           <Avatar
             src={
@@ -231,16 +252,21 @@ function AddMyTravel() {
           </Box>
 
           {/* btAddMyTravel   =====================================*/}
-          <Button variant="contained" fullWidth
-            sx={{ mt: 2, py: 2, backgroundColor: "#259e69" }} 
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2, py: 2, backgroundColor: "#259e69" }}
             onClick={handleSaveTravelClick}
           >
             บันทึการเดินทาง
           </Button>
 
-          <Link to="/mytravel" style={{ textDecoration: "none", color: "#259e69" }}>
+          <Link
+            to="/mytravel"
+            style={{ textDecoration: "none", color: "#259e69" }}
+          >
             <Typography
-              sx={{ fontWeight:"bold", mt: 2, mb: 1, textAlign: "center" }}
+              sx={{ fontWeight: "bold", mt: 2, mb: 1, textAlign: "center" }}
             >
               กลับไปหน้าการเดินทางของฉัน
             </Typography>
