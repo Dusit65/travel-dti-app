@@ -11,7 +11,7 @@ import {
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import { useEffect, useState } from "react";
 import Profile from "./../assets/profile.png";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
@@ -28,6 +28,8 @@ function EditProfile() {
 
   const [travellerNewImage, setTravellerNewImage] = useState(null); //*****/
 
+  const navigator = useNavigate();
+
   useEffect(() => {
     //เอาข้อมูลใน memory มาแสดงที่ AppBar
     //อ่านข้อมูลจาก memory เก็บในตัวแปร
@@ -39,7 +41,51 @@ function EditProfile() {
     setTravellerPassword(traveller.travellerPassword);
     setTravellerId(traveller.setTravellerId);
   }, []);
+  const handleEditProfileClick = async (e) => {
+    console.log(travellerFullname, travellerEmail, travellerPassword);
+    //Validate Register Button
+    e.preventDefault();
+    if(travellerFullname.trim().length == 0){
+          alert('ป้อนชื่อ-นามสกุลด้วย') 
+      }else if(travellerEmail.trim().length == 0){ 
+          alert('ป้อนอีเมล์ด้วย') 
+      }else if(travellerPassword.trim().length == 0){ 
+          alert('ป้อนรหัสผ่านด้วย') 
+      }else{ 
+      //Send data to API, save to DB and redirect to Login page.
+      //Packing data
+      const formData = new FormData();
 
+      formData.append('travellerFullname', travellerFullname);
+      formData.append('travellerEmail', travellerEmail);
+      formData.append('travellerPassword', travellerPassword);
+      formData.append('travellerId', travellerId);
+
+      if (travellerImage){
+        formData.append('travellerImage', travellerImage);
+      }
+
+      //send data from formData to API (http://localhost:4000/traveller) POST
+      try {
+        const response = await fetch(`http://localhost:4000/traveller/${travellerId}`, {
+          method: 'PUT',
+          body: formData,
+        });
+        if(response.status == 200){
+          alert("แก้ไขProfileสําเร็จOwO");
+          navigator("/mytravel");
+          // window.location.href("/")
+        }else{
+          alert("แก้ไขProfileไม่สำเร็จโปรดลองใหม่อีกครั้งTwT");
+        }
+      }
+      catch (error) {
+        alert("พบข้อผิดพลาดในการแก้ไขProfile", error);
+
+      }
+
+      }
+  }
   const handleSelectFileClick = (e) => {
     const file = e.target.files[0];
 
@@ -186,7 +232,7 @@ function EditProfile() {
           <Button
             variant="contained"
             fullWidth
-            sx={{ mt: 4, py: 2, backgroundColor: "#259e69" }}
+            sx={{ mt: 4, py: 2, backgroundColor: "#259e69" }} onClick={handleEditProfileClick}
           >
             แก้ไข Profile
           </Button>
