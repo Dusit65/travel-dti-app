@@ -94,8 +94,7 @@ function EditProfile() {
         });
         if (response.status == 200) {
           alert("แก้ไขโปรไฟล์สําเร็จOwO");
-          
-          navigator("/mytravel");
+          navigator("/");
           // window.location.href("/")
         } else {
           alert("แก้ไขโปรไฟล์ไม่สำเร็จโปรดลองใหม่อีกครั้งTwT");
