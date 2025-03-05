@@ -83,11 +83,12 @@ function MyTravel() {
       alert("ข้อผิดพลาดในการลบข้อมูล");
     }
   };
+  //++++++++++++++++++++++++++++++++++++UI Segment+++++++++++++++++++++++++++++++++++++
   return (
     <>
       <Box sx={{ width: "100%" }}>
+        {/* AppBar====================================== */}
         <Box sx={{ flexGrow: 1 }}>
-          {/* AppBar====================================== */}
           <AppBar position="static">
             <Toolbar>
               <IconButton
@@ -128,8 +129,8 @@ function MyTravel() {
               </Link>
             </Toolbar>
           </AppBar>
-          {/* End of AppBar======================================*/}
         </Box>
+        {/* End of AppBar======================================*/}
         <Box sx={{ width: "70%", boxShadow: 4, mx: "auto", p: 5, my: 4 }}>
           {/* Travel Head Text */}
           <Typography
@@ -183,7 +184,10 @@ function MyTravel() {
                     <TableCell align="center">{row.travelEndDate}</TableCell>
                     <TableCell align="center">{row.travelCostTotal}</TableCell>
                     <TableCell align="center">
-                      <Button component={Link} to={`/editmytravel/${row.travelId}`}>
+                      <Button
+                        component={Link}
+                        to={`/editmytravel/${row.travelId}`}
+                      >
                         แก้ไข
                       </Button>
                       <Button
