@@ -10,7 +10,7 @@ import {
   Avatar,
   TextField,
   styled,
-} from "@mui/material";
+} from "@mui/material"; 
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Travel from "./../assets/travel.png"; //Logo image
