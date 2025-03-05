@@ -88,7 +88,9 @@ function EditMyTravel() {
     whiteSpace: "nowrap",
     width: 1,
   });
-  //===================================================
+ 
+
+  //Edit Travel Func====================================
   const handleUpdateTravelClick = async (e) => {
     //Validate Register Button
     e.preventDefault();
@@ -142,7 +144,7 @@ function EditMyTravel() {
       }
     }
   };
-  //Edit Travel Func====================================
+   //===================================================
 
   return (
     <>
