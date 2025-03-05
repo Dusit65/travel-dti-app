@@ -16,13 +16,13 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Travel from "./../assets/travel.png"; //Logo image
 import Profile from "../assets/profile.png";
 //===========================End of Import======================================
-function AddMyTravel() {
+function EditMyTravel() {
   //เอาข้อมูลใน memory มาแสดงที่ AppBar
   //อ่านข้อมูลจาก memory เก็บในตัวแปร
   const [travellerFullname, setTravellerFullname] = useState("");
   const [travellerImage, setTravellerImage] = useState("");
 
-  const traveller = JSON.parse(localStorage.getItem("traveller"));
+  
   //เอาข้อมูลในตัวแปรกำหนดให้กับ state ที่สร้างไว้
   const [travelImage, setTravelImage] = useState("");
   const [travelNewImage, setTravelNewImage] = useState(null);
@@ -316,4 +316,4 @@ function AddMyTravel() {
   );
 }
 
-export default AddMyTravel;
+export default EditMyTravel;
