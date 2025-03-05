@@ -15,6 +15,7 @@ import { Link , useNavigate} from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Profile from "./../assets/profile.png";
 import Travel from "./../assets/travel.png";
+//===========================End of Import======================================
 
 function EditProfile() {
   const [travellerFullname, setTravellerFullname] = useState("");
@@ -208,7 +209,7 @@ function EditProfile() {
             value={travellerPassword}
             onChange={(e) => setTravellerPassword(e.target.value)}
           />
-          {/* Profile Image=========================================== */}
+          {/* Traveller Image=========================================== */}
           <Avatar
             src={
               travellerNewImage == null
