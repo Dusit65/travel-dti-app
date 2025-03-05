@@ -24,6 +24,8 @@ function EditProfile() {
   const [travellerId, setTravellerId] = useState("");
 
   const [travellerNewImage, setTravellerNewImage] = useState(null); //*****/
+  const [travellerNewFullname, setTravellerNewFullname] = useState(""); //*****/
+
 
   const navigator = useNavigate();
 
@@ -40,6 +42,8 @@ function EditProfile() {
     setTravellerEmail(traveller.travellerEmail);
     setTravellerPassword(traveller.travellerPassword);
     setTravellerId(traveller.travellerId);
+    setTravellerNewFullname(traveller.travellerFullname);
+    
   }, []);
 //Select file func +++++++++++++++++++++++++++
   const handleSelectFileClick = (e) => {
@@ -60,13 +64,12 @@ function EditProfile() {
     whiteSpace: "nowrap",
     width: 1,
   });
-  //Select file func +++++++++++++++++++++++++++
 
-   //editClick func +++++++++++++++++++++++++++
+   //EditClick func +++++++++++++++++++++++++++
    const handleEditProfileClick = async (e) => {
     //Validate Register Button
     e.preventDefault();
-    if (travellerFullname.trim().length == 0) {
+    if (travellerNewFullname.trim().length == 0) {
       alert("ป้อนชื่อ-นามสกุลด้วย");
     } else if (travellerEmail.trim().length == 0) {
       alert("ป้อนชื่อผู้ใช้ด้วย(Email)");
@@ -77,13 +80,13 @@ function EditProfile() {
       //Packing data
       const formData = new FormData();
 
-      formData.append("travellerFullname", travellerFullname);
+      formData.append("travellerFullname", travellerNewFullname);
       formData.append("travellerEmail", travellerEmail);
       formData.append("travellerPassword", travellerPassword);
       formData.append("travellerId", travellerId);
 
-      if (travellerImage){
-        formData.append('travellerImage', travellerImage);
+      if (travellerNewImage){
+        formData.append('travellerImage', travellerNewImage);
       }
 
       //Send data to API
@@ -94,7 +97,10 @@ function EditProfile() {
         });
         if (response.status == 200) {
           alert("แก้ไขโปรไฟล์สําเร็จOwO");
-          navigator("/");
+          localStorage.clear();//clear old data
+          const data = await response.json(); 
+          localStorage.setItem("traveller", JSON.stringify(data["data"]));//set new data
+          navigator("/mytravel");//go to MyTravel
           // window.location.href("/")
         } else {
           alert("แก้ไขโปรไฟล์ไม่สำเร็จโปรดลองใหม่อีกครั้งTwT");
@@ -180,8 +186,8 @@ function EditProfile() {
           {/* TextField travellerFullname============================= */}
           <TextField
             fullWidth
-            value={travellerFullname}
-            onChange={(e) => setTravellerFullname(e.target.value)}
+            value={travellerNewFullname}
+            onChange={(e) => setTravellerNewFullname(e.target.value)}
           />
           <Typography sx={{ fontWeight: "bold", mt: 4, mb: 1 }}>
             ชื่อผู้ใช้ (E-Mail)
